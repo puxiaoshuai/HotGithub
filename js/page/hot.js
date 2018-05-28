@@ -3,40 +3,21 @@
  * author：
  * date：
  */
-import React from 'react';
-import PropTypes from 'prop-types'
+import React, {PropTypes} from 'react';
 import {
-    StyleSheet, Text,
-    View,Platform,StatusBar
+    Image,
+    StyleSheet, Text, TouchableOpacity,
+    View,
 } from 'react-native';
-const  NAVBAR_HEIGHT_ANDROID=50
-const  NAVBAR_HEIGHT_IOS=44
-const  STATUS_BAR_HEIGHT=20
-const  StatusBarShape={
-    backgroundColor:PropTypes.string,
-    barStyle:PropTypes.oneOf(["default","light-content","dark-content"])
-    ,hidden:PropTypes.boolean
-}
-export default class  NavigationBar extends React.Component {
-    static  propTypes={
-        style :View.propTypes.style , //允许用户自定义nvagationbar
-        title:PropTypes.string , //限制文本标题
-        titleView:PropTypes.element , //
-        hide:PropTypes.boolean,
-        leftButton:PropTypes.element,//限制元素
-        rightButton:PropTypes.element,
-        statusbar:PropTypes.shape(StatusBarShape)
-    }
+import NavigationBar from "../common/NavigationBar";
+export default class Hot extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state= {
-            title:"",
-            hide:false
-
-        }
+        this.state = {}
     }
 
-
+    static propTypes = {}
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前
@@ -98,45 +79,22 @@ export default class  NavigationBar extends React.Component {
     }
 
     render() {
-        let status=<View style={styles.statusStyle}>
-            <StatusBar {...this.props.statusbar}></StatusBar>
-        </View>
-        let titleView=this.props.titleView?this.props.titleView: <Text style={styles.title}>{this.props.title}</Text>
-        let content=<View style={styles.navBar}>
-            {this.props.leftButton}
-            <View style={styles.titleViewContainer}>{titleView}</View>
-
-            {this.props.rightButton}
-        </View>
         return (
-            <View style={styles.contniner}>
-                {content}
-
+            <View>
+                <NavigationBar
+                    statusbar={{
+                        backgroundColor:"#00ff8c"
+                    }}
+                    leftButton={
+                        <TouchableOpacity>
+                            <Image style={{width:24,height:24}} source={require('../res/images/ic_back.png')}/>
+                        </TouchableOpacity>
+                    }
+                    title={'热点推荐'}/>
+            <Text>我是热点推荐</Text>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    contniner:{
-        backgroundColor:"#ff776d"
-    },
-    navBar:{
-     justifyContent:'space-between',
-        alignSelf:'center',
-        height: Platform.OS==='ios'?NAVBAR_HEIGHT_IOS:NAVBAR_HEIGHT_ANDROID
-        ,flexDirection:'row'
-    },titleViewContainer:{
-        justifyContent:'center',
-        alignItems:'center',
-
-    },
-    title:{
-        fontSize:20,
-        color:'#fff'
-    }
-    ,statusStyle:{
-        height: Platform.OS==='ios'?STATUS_BAR_HEIGHT:0
-
-    }
-});
+const styles = StyleSheet.create({});

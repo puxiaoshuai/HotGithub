@@ -1,8 +1,9 @@
 import {AppRegistry, Image, View,StyleSheet} from 'react-native';
 import  TabNavigator from  'react-native-tab-navigator'
 import React from "react";
-import  MyTest from './js/page/test'
-import  MyTest1 from './js/page/test1'
+import  Home from './js/page/home'
+import  Hot from './js/page/hot'
+import  Mine from './js/page/mine'
 class BottomTabs extends React.Component {
     constructor(props) {
         super(props);
@@ -92,9 +93,9 @@ class BottomTabs extends React.Component {
         return (
             <View style={styles.container}>
                 <TabNavigator tabBarStyle={ styles.bar_height}>
-                    {this._renderTabsItems("首页",require('./res/images/ic_homeno.png'),require('./res/images/ic_homechoose.png'),MyTest,"")}
-                    {this._renderTabsItems("推荐",require('./res/images/ic_tuijianno.png'),require('./res/images/ic_tuijian.png'),MyTest1,"")}
-                    {this._renderTabsItems("我的",require('./res/images/ic_mineno.png'),require('./res/images/ic_minechoose.png'),MyTest,"1")}
+                    {this._renderTabsItems("首页",require('./js/res/images/ic_homeno.png'),require('./js/res/images/ic_homechoose.png'),Home,"")}
+                    {this._renderTabsItems("推荐",require('./js/res/images/ic_tuijianno.png'),require('./js/res/images/ic_tuijian.png'),Hot,"")}
+                    {this._renderTabsItems("我的",require('./js/res/images/ic_mineno.png'),require('./js/res/images/ic_minechoose.png'),Mine,"1")}
                 </TabNavigator>
             </View>
         );
@@ -112,7 +113,8 @@ const styles = StyleSheet.create({
     },
     selectedTabText:{
         color:'#D81E06'
-        ,fontSize:12
+        ,fontSize:12,
+
     },
     icon:{
         width:24,

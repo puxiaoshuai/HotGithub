@@ -3,15 +3,14 @@
  * author：
  * date：
  */
-import React, {PropTypes} from 'react';
+import React, {PropTypes} from "react";
 import {
-    Image,
-    StyleSheet, Text, TouchableOpacity,
+    StyleSheet, Text,TouchableOpacity,
     View,
-} from 'react-native';
-import NavigationBar from './NavigationBar'
+} from "react-native";
+import NavigationBar from "../common/NavigationBar";
 
-export default class MyTest extends React.Component {
+export default class Mine extends React.Component {
 
     constructor(props) {
         super(props);
@@ -86,13 +85,13 @@ export default class MyTest extends React.Component {
                     statusbar={{
                         backgroundColor:"#00ff8c"
                     }}
-             rightButton={
-                 <TouchableOpacity>
-                  {/*  <Image source={require('res/images/ic_tuijian.png')}/>*/}
-                 </TouchableOpacity>
-             }
-                    title={'boy'}/>
-         <Text>测试</Text>
+                    rightButton={
+                        <TouchableOpacity>
+                            {/*  <Image source={require('res/images/ic_tuijian.png')}/>*/}
+                        </TouchableOpacity>
+                    }
+                    title={'我的'}/>
+        <Text>个人中想</Text>
             </View>
         );
     }

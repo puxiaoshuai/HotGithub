@@ -3,20 +3,41 @@
  * author：
  * date：
  */
-import React, {PropTypes} from 'react';
+import React from "react"
+import PropTypes from "prop-types"
 import {
     StyleSheet, Text,
-    View,
-} from 'react-native';
+    View, Platform, StatusBar
+} from "react-native";
 
-export default class MyTest extends React.Component {
+const NAVBAR_HEIGHT_ANDROID = 50
+const NAVBAR_HEIGHT_IOS = 44
+const STATUS_BAR_HEIGHT = 20
+const StatusBarShape = {
+     backgroundColor: PropTypes.string,
+     barStyle: PropTypes.oneOf(["default", "light-content", "dark-content"])
+    , hidden: PropTypes.boolean
+}
+export default class NavigationBar extends React.Component {
+    static  propTypes = {
+        style: View.propTypes.style, //允许用户自定义nvagationbar
+        title: PropTypes.string, //限制文本标题
+        titleView: PropTypes.element, //
+        hide: PropTypes.bool,
+        leftButton: PropTypes.element,//限制元素
+        rightButton: PropTypes.b,
+        statusbar: PropTypes.shape(StatusBarShape)
+    }
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            title: "",
+            hide: false
+
+        }
     }
 
-    static propTypes = {}
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前
@@ -78,13 +99,45 @@ export default class MyTest extends React.Component {
     }
 
     render() {
+        let status = <View style={styles.statusStyle}>
+            <StatusBar {...this.props.statusbar}></StatusBar>
+        </View>
+        let titleView = this.props.titleView ? this.props.titleView :
+            <Text style={styles.title}>{this.props.title}</Text>
+        let content = <View style={styles.navBar}>
+            {this.props.leftButton}
+            <View style={styles.titleViewContainer}>{titleView}</View>
+            {this.props.rightButton}
+        </View>
         return (
-            <View>
+            <View style={styles.contniner}>
+                {content}
 
-         <Text>我是新的界面</Text>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    contniner: {
+        backgroundColor: "#ff776d"
+    },
+    navBar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignSelf: 'center',
+        height: Platform.OS === 'ios' ? NAVBAR_HEIGHT_IOS : NAVBAR_HEIGHT_ANDROID
+        ,
+    }, titleViewContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    title: {
+        fontSize: 20,
+        color: '#fff'
+    }
+    , statusStyle: {
+        height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT : 0
+    }
+});
