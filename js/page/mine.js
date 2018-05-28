@@ -79,18 +79,13 @@ export default class Mine extends React.Component {
     }
 
     render() {
+
         return (
             <View>
                 <NavigationBar
-                    statusbar={{
-                        backgroundColor:"#00ff8c"
-                    }}
-                    rightButton={
-                        <TouchableOpacity>
-                            {/*  <Image source={require('res/images/ic_tuijian.png')}/>*/}
-                        </TouchableOpacity>
-                    }
-                    title={'我的'}/>
+                    title={"个人中心"}
+                    statusBar={{backgroundColor:'#ff776d'}}
+                />
         <Text>个人中想</Text>
             </View>
         );

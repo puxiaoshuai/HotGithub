@@ -3,141 +3,93 @@
  * author：
  * date：
  */
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
-    StyleSheet, Text,
-    View, Platform, StatusBar
-} from "react-native";
-
-const NAVBAR_HEIGHT_ANDROID = 50
-const NAVBAR_HEIGHT_IOS = 44
-const STATUS_BAR_HEIGHT = 20
-const StatusBarShape = {
-     backgroundColor: PropTypes.string,
-     barStyle: PropTypes.oneOf(["default", "light-content", "dark-content"])
-    , hidden: PropTypes.boolean
-}
-export default class NavigationBar extends React.Component {
-    static  propTypes = {
-        style: View.propTypes.style, //允许用户自定义nvagationbar
-        title: PropTypes.string, //限制文本标题
-        titleView: PropTypes.element, //
-        hide: PropTypes.bool,
-        leftButton: PropTypes.element,//限制元素
-        rightButton: PropTypes.b,
-        statusbar: PropTypes.shape(StatusBarShape)
+    View,
+    Text,
+    StyleSheet,
+    Platform,
+    StatusBar
+} from 'react-native';
+// // barStyle:PropTypes.oneOf(['default','light-content','dark-content']),
+const NAVBAR_HEIGHT_ANDROID=50;
+const NAVBAR_HEIGHT_IOS=44;
+const STATUS_BAR_HEIGHT=24;
+const STATUS_BAR_SHAPE={
+    backgroundColor:PropTypes.string,
+    hidden:PropTypes.bool
+};
+export default class NavigationBar extends React.Component{
+    static propTypes={
+        //设置约束
+        style:View.propTypes.style,
+        title:PropTypes.string,
+        titleView:PropTypes.element,
+        hide:PropTypes.bool,
+        leftButton:PropTypes.element,
+        rightButton:PropTypes.element,
+        statusBar:PropTypes.shape(STATUS_BAR_SHAPE)
     }
+    static defaultProps={
+        statusBar:{
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: "",
-            hide: false
-
+            hidden:false
         }
     }
-
-
-    /**
-     * 初始化了状态之后，在第一次绘制 render() 之前
-     * （能够使用setState()来改变属性 有且只有一次）
-     */
-    componentWillMount() {
-
+    constructor(props){
+        super(props);
+        this.state={
+            title:'',
+            hide:false
+        }
     }
-
-    /**
-     * 这个函数开始，就可以和 JS 其他框架交互了，例如设置计时 setTimeout 或者 setInterval，
-     * 或者发起网络请求。这个函数也是只被调用一次
-     * （能够使用setState()来改变属性 有且只有一次）
-     */
-    componentDidMount() {
-
-    }
-
-    /**
-     * 输入参数 nextProps 是即将被设置的属性，旧的属性还是可以通过 this.props 来获取。在这个回调函数里面，你可以根据属性的变化，
-     * 通过调用 this.setState() 来更新你的组件状态，这里调用更新状态是安全的，并不会触发额外的 render()
-     * （能够使用setState()来改变属性 多次调用）
-     */
-    componentWillReceiveProps() {
-
-    }
-
-    /**
-     * 当组件接收到新的属性和状态改变的话，都会触发调用 shouldComponentUpdate(...)
-     * （不能够使用setState()来改变属性 多次调用）
-     */
-    shouldComponentUpdate() {
-        return true
-
-    }
-
-    /**
-     * 如果组件状态或者属性改变，并且上面的 shouldComponentUpdate(...) 返回为 true，就会开始准更新组件
-     * （不能够使用setState()来改变属性 多次调用）
-     */
-    componentWillUpdate() {
-
-    }
-
-    /**
-     * 调用了 render() 更新完成界面之后，会调用 componentDidUpdate() 来得到通知
-     * （不能够使用setState()来改变属性 多次调用）
-     */
-    componentDidUpdate() {
-
-    }
-
-    /**
-     * 组件要被从界面上移除的时候，就会调用 componentWillUnmount()
-     * （不能够使用setState()来改变属性 有且只有一次调用）
-     */
-    componentWillUnmount() {
-
-    }
-
-    render() {
-        let status = <View style={styles.statusStyle}>
-            <StatusBar {...this.props.statusbar}></StatusBar>
-        </View>
-        let titleView = this.props.titleView ? this.props.titleView :
-            <Text style={styles.title}>{this.props.title}</Text>
-        let content = <View style={styles.navBar}>
-            {this.props.leftButton}
-            <View style={styles.titleViewContainer}>{titleView}</View>
+    render(){
+        let status=<View style={[styles.statusBar,this.props.statusBar]}><StatusBar {...this.props.statusBar}/></View>
+        let titleView=this.props.titleView?this.props.titleView:<Text style={styles.title}>
+            {this.props.title}
+        </Text> //没有设置titleview的时候，使用text文字作为title
+        let content=<View style={styles.navBar}>{this.props.leftButton}
+            <View style={styles.titleViewContainer}>
+                {titleView}
+            </View>
             {this.props.rightButton}
         </View>
         return (
-            <View style={styles.contniner}>
+            <View style={[styles.container,this.props.style]}>
+                {status}
                 {content}
-
             </View>
-        );
+        )
     }
 }
 
-const styles = StyleSheet.create({
-    contniner: {
-        backgroundColor: "#ff776d"
-    },
-    navBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignSelf: 'center',
-        height: Platform.OS === 'ios' ? NAVBAR_HEIGHT_IOS : NAVBAR_HEIGHT_ANDROID
-        ,
-    }, titleViewContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+const styles=StyleSheet.create({
+    container:{
 
     },
-    title: {
-        fontSize: 20,
-        color: '#fff'
-    }
-    , statusStyle: {
-        height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT : 0
+    navBar:{
+        justifyContent:'space-between',
+        alignItems:'center',
+        height:Platform.OS==='ios'?NAVBAR_HEIGHT_IOS:NAVBAR_HEIGHT_ANDROID,
+        backgroundColor:'#ff776d',
+        flexDirection:'row'
+    },
+    titleViewContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        position:'absolute',
+        left:40,
+        right:40,
+        top:0,
+        bottom:0
+    },
+    title:{
+
+        fontSize:20,
+        color:'white'
+    },
+    statusBar:{
+        height:Platform==='ios'?STATUS_BAR_HEIGHT:0,
     }
 });

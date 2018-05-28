@@ -80,18 +80,22 @@ export default class Home extends React.Component {
     }
 
     render() {
+
         return (
-            <View>
+            <View style={styles.container}>
                 <NavigationBar
-                    statusbar={{
-                        backgroundColor: "#00ff8c"
-                    }}
-                    hide={true}
-                    title={'首页'}/>
-                <Text>我是首页</Text>
+                    leftButton={<TouchableOpacity><Image style={{width:24,height:24,marginLeft:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>}
+                    title={"首页"}
+                    rightButton={<TouchableOpacity><Image style={{width:24,height:24,marginRight:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>}
+                    statusBar={{backgroundColor:'#ff776d'}}
+                   />
+                <Text>你哈或或或或或</Text>
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    container:{
 
-const styles = StyleSheet.create({});
+    },
+});

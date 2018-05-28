@@ -79,19 +79,14 @@ export default class Hot extends React.Component {
     }
 
     render() {
+
         return (
             <View>
                 <NavigationBar
-                    statusbar={{
-                        backgroundColor:"#00ff8c"
-                    }}
-                    leftButton={
-                        <TouchableOpacity>
-                            <Image style={{width:24,height:24}} source={require('../res/images/ic_back.png')}/>
-                        </TouchableOpacity>
-                    }
-                    title={'热点推荐'}/>
-            <Text>我是热点推荐</Text>
+                    statusBar={{backgroundColor:'#ff776d'}}
+                    title={"热点"}
+                />
+            <Text style={{color:"#ff7f39"}}>我是热点推荐</Text>
             </View>
         );
     }
