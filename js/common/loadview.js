@@ -5,20 +5,15 @@
  */
 import React, {PropTypes} from 'react';
 import {
-    Image,
-    StyleSheet, Text, TouchableOpacity,
+    StyleSheet, Text,
     View,
 } from 'react-native';
-import LoadView from '../common/loadview'
-import NavigationBar from '../common/NavigationBar'
 
-export default class Home extends React.Component {
+export default class LoadView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            message:''
-        }
+        this.state = {}
     }
 
     static propTypes = {}
@@ -38,9 +33,6 @@ export default class Home extends React.Component {
      */
     componentDidMount() {
 
-     this._fetch()
-
-
     }
 
     /**
@@ -51,23 +43,7 @@ export default class Home extends React.Component {
     componentWillReceiveProps() {
 
     }
-     _fetch()
-     {
-         fetch('https://facebook.github.io/react-native/movies.json',{
-             method:'GET',//如果为GET方式，则不要添加body，否则会出错    GET/POST
-             header:{//请求头
-             },
 
-         })
-             .then((response) => response.json())//将数据转成json,也可以转成 response.text、response.html
-             .then((responseJson) => {//获取转化后的数据responseJson、responseText、responseHtml
-                 this.setState({
-                     message:responseJson.title
-                 })
-             }).catch((error) => {
-             console.log(error);
-         });
-     }
     /**
      * 当组件接收到新的属性和状态改变的话，都会触发调用 shouldComponentUpdate(...)
      * （不能够使用setState()来改变属性 多次调用）
@@ -100,34 +76,17 @@ export default class Home extends React.Component {
     componentWillUnmount() {
 
     }
+
     render() {
-
-        if (!this.state.message)
-        {
-            return (
-                <LoadView/>
-
-            );
-        }
         return (
             <View style={styles.container}>
-                <NavigationBar
-                    leftButton={<TouchableOpacity><Image style={{width:24,height:24,marginLeft:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>}
-                    title={"首页"}
-                    rightButton={<TouchableOpacity><Image style={{width:24,height:24,marginRight:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>}
-                    statusBar={{backgroundColor:'#ff776d'}}
-                />
-                <Text onPress={()=>this._fetch()}>点击加载</Text>
-               <Text>{this.state.message}</Text>
-
+             <Text>加载中，请稍后...</Text>
             </View>
         );
-
     }
 }
-
 const styles = StyleSheet.create({
     container:{
-
+        flex:1,flexDirection:'row',justifyContent:'center',alignItems:'center',backgroundColor:'#fff'
     },
 });

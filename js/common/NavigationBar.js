@@ -83,6 +83,7 @@ const styles=StyleSheet.create({
         right:40,
         top:0,
         bottom:0
+        //绝对布局，让标题固定在中间
     },
     title:{
 
