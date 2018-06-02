@@ -1,27 +1,16 @@
-/**
- * desc：
- * author：
- * date：
- */
-import React  from 'react';
-import {
-    Image,
-    StyleSheet, Text, TouchableOpacity,
-    View,ToastAndroid
-} from 'react-native';
-import LoadView from '../common/loadview'
-import NavigationBar from '../common/NavigationBar'
-import HttpUtils from '../utils/HttpUrils'
-
-export default class Home extends React.Component {
-
+import { Image, View,StyleSheet} from 'react-native';
+import  TabNavigator from  'react-native-tab-navigator'
+import React from "react";
+import  Home from '../page/home'
+import  Hot from '../page/hot'
+import  Mine from '../page/mine'
+export default class SetUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message:''
+            selectedTab:'首页'
         }
     }
-
     static propTypes = {}
 
     /**
@@ -39,9 +28,6 @@ export default class Home extends React.Component {
      */
     componentDidMount() {
 
-     this._fetch()
-
-
     }
 
     /**
@@ -52,30 +38,7 @@ export default class Home extends React.Component {
     componentWillReceiveProps() {
 
     }
-     _fetch()
-     {
-        /* fetch('http://gank.io/api/data/福利/10/1',{
-             method:'GET',//如果为GET方式，则不要添加body，否则会出错    GET/POST
-             header:{//请求头
-             },
 
-         })
-             .then((response) => response.json())//将数据转成json,也可以转成 response.text、response.html
-             .then((responseJson) => {//获取转化后的数据responseJson、responseText、responseHtml
-                 this.setState({
-                     message:responseJson.results[0].url
-                 })
-             }).catch((error) => {
-             console.log(error);
-         });*/
-        HttpUtils.get("http://gank.io/api/data/福利/10/1").then(result=>{
-            this.setState({
-                message:result.results[3].url
-            })
-        }).catch(error=>{
-            ToastAndroid.show(error+"失败")
-        })
-     }
     /**
      * 当组件接收到新的属性和状态改变的话，都会触发调用 shouldComponentUpdate(...)
      * （不能够使用setState()来改变属性 多次调用）
@@ -108,25 +71,32 @@ export default class Home extends React.Component {
     componentWillUnmount() {
 
     }
+    _renderTabsItems(selectTab,icon,selectedIcon,Component,bage_tab)
+    {
+        return(
+            <TabNavigator.Item
+                selected={this.state.selectedTab === selectTab} //选中那个
+                title={selectTab}
+                titleStyle={styles.tabText}
+                selectedTitleStyle={styles.selectedTabText}
+                renderIcon={() => <Image style={styles.icon} source={icon} />}
+                renderSelectedIcon={() => <Image style={styles.icon} source={selectedIcon} />}
+                onPress={() => this.setState({ selectedTab: selectTab })}//设置选中的那个
+                badgeText={bage_tab}
+
+            >
+                <Component></Component>
+            </TabNavigator.Item>
+        )
+    }
     render() {
-
-        if (!this.state.message)
-        {
-            return (
-                <LoadView/>
-
-            );
-        }
         return (
             <View style={styles.container}>
-                <NavigationBar
-                    leftButton={<TouchableOpacity><Image style={{width:24,height:24,marginLeft:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>}
-                    title={"首页"}
-                    rightButton={<TouchableOpacity><Image style={{width:24,height:24,marginRight:8}} source={require('../res/images/ic_start.png')}/></TouchableOpacity>}
-                    statusBar={{backgroundColor:'#ff776d'}}
-                />
-               <Text>{this.state.message}</Text>
-                <Image source={{uri:this.state.message} }style={{width:120,height:120}}/>
+                <TabNavigator tabBarStyle={ styles.bar_height}>
+                    {this._renderTabsItems("首页",require('../res/images/ic_homeno.png'),require('../res/images/ic_homechoose.png'),Home,"")}
+                    {this._renderTabsItems("推荐",require('../res/images/ic_tuijianno.png'),require('../res/images/ic_tuijian.png'),Hot,"")}
+                    {this._renderTabsItems("我的",require('../res/images/ic_mineno.png'),require('../res/images/ic_minechoose.png'),Mine,"1")}
+                </TabNavigator>
             </View>
         );
     }
@@ -134,6 +104,31 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
     container:{
+        flex:1,
+        backgroundColor:'#fff'
+    },
+    tabText:{
+        color:'#000000',
+        fontSize:12
+    },
+    selectedTabText:{
+        color:'#D81E06'
+        ,fontSize:12,
 
     },
-});
+    icon:{
+        width:24,
+        height:24
+    },
+    bar_height:{
+        height:54,
+    },
+    page:{
+        flex:1,
+        color:"#ffc56a"
+    }
+
+
+})
+
+
