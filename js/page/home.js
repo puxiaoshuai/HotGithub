@@ -70,7 +70,7 @@ export default class Home extends React.Component {
          });*/
         HttpUtils.get("http://gank.io/api/data/福利/10/1").then(result=>{
             this.setState({
-                message:result.results[3].url
+                message:result.results[5].url
             })
         }).catch(error=>{
             ToastAndroid.show(error+"失败")

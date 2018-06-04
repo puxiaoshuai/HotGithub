@@ -1,3 +1,3 @@
 import {AppRegistry, Image, View,StyleSheet} from 'react-native';
-import Settings from './js/page/SetUp'
-AppRegistry.registerComponent('HotGithub', () => Settings);
+import Router from './js/page/Router'
+AppRegistry.registerComponent('HotGithub', () => Router);

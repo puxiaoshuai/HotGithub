@@ -3,16 +3,17 @@
  * author：
  * date：
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {
-    StyleSheet, Text,
+    StyleSheet,
     View,
 } from 'react-native';
-import {Actions} from 'react-native-router-flux'
+import BottomBar from '../page/bottombar'
+import WelcomePage from '../page/WelcomePage'
+import {Router,Scene} from 'react-native-router-flux'
 
 
-
-export default class WelcomePage extends React.Component {
+export default class  extends React.Component {
 
     constructor(props) {
         super(props);
@@ -35,11 +36,6 @@ export default class WelcomePage extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentDidMount() {
-        //暂停两秒跳转到首页
-       // const  gotoDetails=()=>Actions.bottombar()//跳转并传值
-       this.timer= setTimeout(()=>{
-           Actions.reset('bottombar')
-        },1000)
 
     }
 
@@ -57,6 +53,7 @@ export default class WelcomePage extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     shouldComponentUpdate() {
+        return true
 
     }
 
@@ -81,32 +78,17 @@ export default class WelcomePage extends React.Component {
      * （不能够使用setState()来改变属性 有且只有一次调用）
      */
     componentWillUnmount() {
-        this.timer&&clearTimeout(this.timer)
 
     }
 
     render() {
-
-        return (
-            <View style={styles.container}>
-                <Text style={styles.text1}>欢迎</Text>
-            </View>
-        );
+        return <Router>
+            <Scene key="root">
+                <Scene key="welcome" component={WelcomePage}  initial={true} hideNavBar={true} />
+                <Scene key="bottombar" component={BottomBar}  hideNavBar={true} />
+            </Scene>
+        </Router>
     }
 }
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent: 'center',
-        alignItems:'center',
-    },
-         text1:
-             {
-                 fontSize:20,
-                 color:'#ff0307',
-                 textAlign:'center',
-                 justifyContent: 'center'
-
-             }
-});
+const styles = StyleSheet.create({});  

@@ -4,7 +4,7 @@ import React from "react";
 import  Home from '../page/home'
 import  Hot from '../page/hot'
 import  Mine from '../page/mine'
-export default class SetUp extends React.Component {
+export default class bottomBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
