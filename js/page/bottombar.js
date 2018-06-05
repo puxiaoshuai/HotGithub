@@ -4,6 +4,7 @@ import React from "react";
 import  Home from '../page/home'
 import  Hot from '../page/hot'
 import  Mine from '../page/mine'
+import  PicShow from '../page/picshow'
 export default class bottomBar extends React.Component {
     constructor(props) {
         super(props);
@@ -95,6 +96,7 @@ export default class bottomBar extends React.Component {
                 <TabNavigator tabBarStyle={ styles.bar_height}>
                     {this._renderTabsItems("首页",require('../res/images/ic_homeno.png'),require('../res/images/ic_homechoose.png'),Home,"")}
                     {this._renderTabsItems("推荐",require('../res/images/ic_tuijianno.png'),require('../res/images/ic_tuijian.png'),Hot,"")}
+                    {this._renderTabsItems("趣图",require('../res/images/ic_smile.png'),require('../res/images/ic_smilered.png'),PicShow,"")}
                     {this._renderTabsItems("我的",require('../res/images/ic_mineno.png'),require('../res/images/ic_minechoose.png'),Mine,"1")}
                 </TabNavigator>
             </View>

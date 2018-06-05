@@ -1,5 +1,5 @@
 /**
- * desc：
+ * desc：自定义标题栏目
  * author：
  * date：
  */
@@ -13,7 +13,7 @@ import {
     StatusBar
 } from 'react-native';
 // // barStyle:PropTypes.oneOf(['default','light-content','dark-content']),
-const NAVBAR_HEIGHT_ANDROID=50;
+const NAVBAR_HEIGHT_ANDROID=46;
 const NAVBAR_HEIGHT_IOS=44;
 const STATUS_BAR_HEIGHT=24;
 const STATUS_BAR_SHAPE={

@@ -12,7 +12,7 @@ import {
 import LoadView from '../common/loadview'
 import NavigationBar from '../common/NavigationBar'
 import HttpUtils from '../utils/HttpUrils'
-
+import barColor from '../utils/colors'
 export default class Home extends React.Component {
 
     constructor(props) {
@@ -70,7 +70,7 @@ export default class Home extends React.Component {
          });*/
         HttpUtils.get("http://gank.io/api/data/福利/10/1").then(result=>{
             this.setState({
-                message:result.results[5].url
+                message:result.results[1].url
             })
         }).catch(error=>{
             ToastAndroid.show(error+"失败")
@@ -120,10 +120,9 @@ export default class Home extends React.Component {
         return (
             <View style={styles.container}>
                 <NavigationBar
-                    leftButton={<TouchableOpacity><Image style={{width:24,height:24,marginLeft:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>}
+
                     title={"首页"}
-                    rightButton={<TouchableOpacity><Image style={{width:24,height:24,marginRight:8}} source={require('../res/images/ic_start.png')}/></TouchableOpacity>}
-                    statusBar={{backgroundColor:'#ff776d'}}
+                    statusBar={{backgroundColor:barColor.color_bar}}
                 />
                <Text>{this.state.message}</Text>
                 <Image source={{uri:this.state.message} }style={{width:120,height:120}}/>

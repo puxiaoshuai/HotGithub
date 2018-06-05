@@ -83,10 +83,10 @@ export default class Mine extends React.Component {
         return (
             <View>
                 <NavigationBar
-                    title={"个人中心"}
+                    title={"趣图"}
                     statusBar={{backgroundColor:barColor.color_bar}}
                 />
-        <Text>个人中想</Text>
+        <Text>趣图界面</Text>
             </View>
         );
     }

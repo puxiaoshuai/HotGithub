@@ -10,6 +10,7 @@ import {
     View,
 } from 'react-native';
 import NavigationBar from "../common/NavigationBar";
+import barColor from "../utils/colors";
 export default class Hot extends React.Component {
 
     constructor(props) {
@@ -83,7 +84,7 @@ export default class Hot extends React.Component {
         return (
             <View>
                 <NavigationBar
-                    statusBar={{backgroundColor:'#ff776d'}}
+                    statusBar={{backgroundColor:barColor.color_bar}}
                     title={"热点"}
                 />
             <Text style={{color:"#ff7f39"}}>我是热点推荐</Text>
