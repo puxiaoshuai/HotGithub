@@ -13,7 +13,7 @@ import {
     StatusBar
 } from 'react-native';
 // // barStyle:PropTypes.oneOf(['default','light-content','dark-content']),
-const NAVBAR_HEIGHT_ANDROID=46;
+const NAVBAR_HEIGHT_ANDROID=44;
 const NAVBAR_HEIGHT_IOS=44;
 const STATUS_BAR_HEIGHT=24;
 const STATUS_BAR_SHAPE={

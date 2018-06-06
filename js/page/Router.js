@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import BottomBar from '../page/bottombar'
 import WelcomePage from '../page/WelcomePage'
+import WebView from '../page/webview'
 import {Router,Scene} from 'react-native-router-flux'
 
 
@@ -86,9 +87,10 @@ export default class  extends React.Component {
             <Scene key="root">
                 <Scene key="welcome" component={WelcomePage}  initial={true} hideNavBar={true} />
                 <Scene key="bottombar" component={BottomBar}  hideNavBar={true} />
+                <Scene key="web_view" component={WebView}  hideNavBar={true} />
             </Scene>
         </Router>
     }
 }
 
-const styles = StyleSheet.create({});  
+const styles = StyleSheet.create({});

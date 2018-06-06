@@ -7,18 +7,19 @@ import React  from 'react';
 import {
     Image,
     StyleSheet, Text, TouchableOpacity,
-    View,ToastAndroid
+    View, ToastAndroid, ScrollView
 } from 'react-native';
 import LoadView from '../common/loadview'
 import NavigationBar from '../common/NavigationBar'
-import HttpUtils from '../utils/HttpUrils'
 import barColor from '../utils/colors'
+import ScrollableTabView  , { ScrollableTabBar }from 'react-native-scrollable-tab-view'
+import FlatListHome from "./FlatListHome";
 export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            message:''
+           news_tabs:["Android","iOS","前端"]
         }
     }
 
@@ -39,7 +40,7 @@ export default class Home extends React.Component {
      */
     componentDidMount() {
 
-     this._fetch()
+
 
 
     }
@@ -52,30 +53,7 @@ export default class Home extends React.Component {
     componentWillReceiveProps() {
 
     }
-     _fetch()
-     {
-        /* fetch('http://gank.io/api/data/福利/10/1',{
-             method:'GET',//如果为GET方式，则不要添加body，否则会出错    GET/POST
-             header:{//请求头
-             },
 
-         })
-             .then((response) => response.json())//将数据转成json,也可以转成 response.text、response.html
-             .then((responseJson) => {//获取转化后的数据responseJson、responseText、responseHtml
-                 this.setState({
-                     message:responseJson.results[0].url
-                 })
-             }).catch((error) => {
-             console.log(error);
-         });*/
-        HttpUtils.get("http://gank.io/api/data/福利/10/1").then(result=>{
-            this.setState({
-                message:result.results[1].url
-            })
-        }).catch(error=>{
-            ToastAndroid.show(error+"失败")
-        })
-     }
     /**
      * 当组件接收到新的属性和状态改变的话，都会触发调用 shouldComponentUpdate(...)
      * （不能够使用setState()来改变属性 多次调用）
@@ -110,29 +88,47 @@ export default class Home extends React.Component {
     }
     render() {
 
-        if (!this.state.message)
+        if (!this.state.news_tabs)
         {
+            return (<LoadView/>);
+        }else {
             return (
-                <LoadView/>
-
+                <View style={styles.container}>
+                    <NavigationBar
+                        title={"首页"}
+                        statusBar={{backgroundColor:barColor.color_bar}}
+                    />
+                    <ScrollableTabView
+                        tabBarBackgroundColor={barColor.color_bar} //tab栏目背景色
+                        tabBarActiveTextColor='#4d4a4d'//选中的文字颜色
+                        tabBarInactiveTextColor='#fff'//未选中的文字颜色
+                        tabBarUnderlineStyle={styles.tabBarUnderline}
+                        tabBarTextStyle={styles.text_style}
+                        renderTabBar={()=><ScrollableTabBar />}>
+                        {
+                              this.state.news_tabs.map((name,index)=>{
+                                return (<ScrollView tabLabel={name} key={index} >
+                                       <FlatListHome id={name}/>
+                                </ScrollView>)
+                            })
+                        }
+                    </ScrollableTabView>
+                </View>
             );
         }
-        return (
-            <View style={styles.container}>
-                <NavigationBar
 
-                    title={"首页"}
-                    statusBar={{backgroundColor:barColor.color_bar}}
-                />
-               <Text>{this.state.message}</Text>
-                <Image source={{uri:this.state.message} }style={{width:120,height:120}}/>
-            </View>
-        );
     }
 }
 
 const styles = StyleSheet.create({
     container:{
-
+        flex:1,flexDirection:'column'
     },
+    tabBarUnderline: {
+        backgroundColor: '#ff6300',
+        height: 2,
+    },
+    text_style:{
+        fontSize:14,
+    }
 });

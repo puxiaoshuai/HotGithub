@@ -6,11 +6,12 @@
 import React, {PropTypes} from 'react';
 import {
     Image,
-    StyleSheet, Text, TouchableOpacity,
+    StyleSheet, Text, TouchableOpacity,ToastAndroid,
     View,
 } from 'react-native';
 import NavigationBar from "../common/NavigationBar";
 import barColor from "../utils/colors";
+import  DeviceStorage from '../utils/DeviceStorage'
 export default class Hot extends React.Component {
 
     constructor(props) {
@@ -80,14 +81,30 @@ export default class Hot extends React.Component {
     }
 
     render() {
-
+           let list=['zhan','ddd']
         return (
             <View>
                 <NavigationBar
                     statusBar={{backgroundColor:barColor.color_bar}}
                     title={"热点"}
                 />
-            <Text style={{color:"#ff7f39"}}>我是热点推荐</Text>
+            <Text style={{color:"#ff7f39"}} onPress={()=>{
+                DeviceStorage.save("hh",list)
+            }}>我是热点推荐</Text>
+                <Text style={{color:"#ff7f39"}} onPress={()=>{
+                    DeviceStorage.get('hh').then((data)=>{
+                        if (!data)
+                        {
+                            ToastAndroid.show("暂无数据",2000)
+                        }else {
+                            ToastAndroid.show(data[0],2000)
+                        }
+
+                    })
+                }}>获取</Text>
+                <Text style={{color:"#ff7f39"}} onPress={()=>{
+                    DeviceStorage.delete("hh")
+                }}>清除</Text>
             </View>
         );
     }

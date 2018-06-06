@@ -3,18 +3,20 @@
  * author：
  * date：
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {
-    Image,
     StyleSheet, Text,
-    Dimensions,
-    View,
+    View, WebView, Dimensions, TouchableOpacity, Image
 } from 'react-native';
+import barColor from "../utils/colors";
+import NavigationBar from "../common/NavigationBar";
+//获取设备的宽度和高度
+var {
+    height: deviceHeight,
+    width: deviceWidth
+} = Dimensions.get('window');
 import {Actions} from 'react-native-router-flux'
-var  {width, height} =Dimensions.get('window')
-
-
-export default class WelcomePage extends React.Component {
+export default class NewsDetails extends React.Component {
 
     constructor(props) {
         super(props);
@@ -37,11 +39,6 @@ export default class WelcomePage extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentDidMount() {
-        //暂停两秒跳转到首页
-       // const  gotoDetails=()=>Actions.bottombar()//跳转并传值
-       this.timer= setTimeout(()=>{
-           Actions.reset('bottombar')
-        },1000)
 
     }
 
@@ -59,6 +56,7 @@ export default class WelcomePage extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     shouldComponentUpdate() {
+        return true
 
     }
 
@@ -83,24 +81,36 @@ export default class WelcomePage extends React.Component {
      * （不能够使用setState()来改变属性 有且只有一次调用）
      */
     componentWillUnmount() {
-        this.timer&&clearTimeout(this.timer)
 
     }
 
     render() {
-
         return (
             <View style={styles.container}>
-           <Image   source={require('../res/images/welcome.jpg')} style={{width:width,height:height}}/>
+               {/* <Text>ff{this.props.url}</Text>*/}
+                <NavigationBar
+                    leftButton={<TouchableOpacity onPress={Actions.pop}><Image style={{width:24,height:24,marginLeft:8}} source={require('../res/images/ic_left.png')}/></TouchableOpacity>
+                     }
+                    title={"详情"}
+                    statusBar={{backgroundColor:barColor.color_bar}}
+                />
+                <WebView
+                    automaticallyAdjustContentInsets={false}
+                    source={{uri:this.props.url}}
+                    javaScriptEnabled={true}
+                    scrollEnabled={true}
+                    startInLoadingState={true}
+                />
+
             </View>
         );
     }
-}
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent: 'center',
-        alignItems:'center',
-    },
 
+}
+//样式定义
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    }
 });
+
