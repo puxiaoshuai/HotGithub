@@ -49,7 +49,8 @@ export default class NavigationBar extends React.Component{
         let titleView=this.props.titleView?this.props.titleView:<Text style={styles.title}>
             {this.props.title}
         </Text> //没有设置titleview的时候，使用text文字作为title
-        let content=<View style={styles.navBar}>{this.props.leftButton}
+        let content=<View style={styles.navBar}>
+            {this.props.leftButton}
             <View style={styles.titleViewContainer}>
                 {titleView}
             </View>

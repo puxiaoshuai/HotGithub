@@ -7,13 +7,14 @@ import React  from 'react';
 import {
     Image,
     StyleSheet, Text, TouchableOpacity,
-    View, ToastAndroid, ScrollView
+    View, ToastAndroid, ScrollView, TouchableWithoutFeedback
 } from 'react-native';
 import LoadView from '../common/loadview'
 import NavigationBar from '../common/NavigationBar'
 import barColor from '../utils/colors'
 import ScrollableTabView  , { ScrollableTabBar }from 'react-native-scrollable-tab-view'
 import FlatListHome from "./FlatListHome";
+
 export default class Home extends React.Component {
 
     constructor(props) {
@@ -97,6 +98,9 @@ export default class Home extends React.Component {
                     <NavigationBar
                         title={"首页"}
                         statusBar={{backgroundColor:barColor.color_bar}}
+                        leftButton={<View/>}
+                        rightButton={<TouchableWithoutFeedback onPress={()=>ToastAndroid.show("dianji",1000)}><Image style={{width:24,height:24,marginRight:16}} source={require('../res/images/ic_menu.png')}/></TouchableWithoutFeedback>}
+
                     />
                     <ScrollableTabView
                         tabBarBackgroundColor={barColor.color_bar} //tab栏目背景色

@@ -5,10 +5,10 @@
  */
 import React, {PropTypes} from 'react';
 import {
-    ActivityIndicator, ToastAndroid,
-    FlatList,  RefreshControl,
+    ActivityIndicator,
+    FlatList, RefreshControl,
     StyleSheet, Text, TouchableNativeFeedback,
-    View, TouchableOpacity, TouchableWithoutFeedback,
+    View,
 } from 'react-native';
 import HttpUtils from '../utils/HttpUrils'
 import NetUrl from  '../utils/urls'
@@ -16,10 +16,6 @@ let totalPage=10;//总的页数
 let itemNo=0;//item的个数
 let  page=1;
 import {Actions} from 'react-native-router-flux'
-import Image from  'react-native-image-progress'
-import  colorUrils from '../utils/colors'
-import * as Progress from 'react-native-progress';
-
 export default class FlatListHome extends React.Component {
 
     constructor(props) {
@@ -47,8 +43,7 @@ export default class FlatListHome extends React.Component {
                     desc:item.desc,
                     time:item.createdAt,
                     who:item.who,
-                    url:item.url,
-                    img:!item.images?[]:item.images
+                    url:item.url
                 })
                 i++;
             })
@@ -146,14 +141,14 @@ export default class FlatListHome extends React.Component {
         //onEndReached是在当列表被滚动到距离内容最底部不足onEndReachedThreshold的距离时调用。
         // 0.5表示距离内容最底部的距离为当前列表可见长度的一半时触发。
         return (
-            <View style={styles.list_height}>
+            <View>
                 <FlatList
                     refreshing={this.state.isRefreshing}
                     data={this.state.news}
                     renderItem={this._renderItemView}
                     ListFooterComponent={()=>this._renderFooter()}
-                  /*  onEndReached={()=>this._onEndReached()}
-                    onEndReachedThreshold={1}*/
+                    onEndReached={()=>this._onEndReached()}
+                    onEndReachedThreshold={1}
                     ItemSeparatorComponent={this._separator}
                     keyExtractor={this._keyExtractor}
                     //为刷新设置颜色
@@ -208,22 +203,10 @@ export default class FlatListHome extends React.Component {
         return (
             //切记不能带（）不能写成gotoDetails()
             <TouchableNativeFeedback onPress={gotoDetails}>
-                <View>
+                <View >
                     <Text style={styles.title}>{item.desc}</Text>
-                    <TouchableWithoutFeedback onPress={()=>ToastAndroid.show("点击图片",2000)}>
-                    <Image
-                        source={{uri:item.img.length===0?'http://ww1.sinaimg.cn/large/0065oQSqly1fs1vq7vlsoj30k80q2ae5.jpg':item.img[0]}}
-                        indicator={Progress.Circle}
-                        color={'#ff2702'}
-                        endAngle={0.9}
-                        showsText={true}
-                        style={{width:160,height:100,marginLeft:8}}/>
-                    </TouchableWithoutFeedback>
-                    <View style={{flexDirection:'row'}}>
-                        <Text style={styles.content}>作者: {item.who}</Text>
                     <Text style={styles.content}>时间: {item.time}</Text>
-                    </View>
-                    <Progress.Pie  size={50} animated={true} />
+                    <Text style={styles.content}>作者: {item.who}</Text>
                 </View>
             </TouchableNativeFeedback >
         );
@@ -249,8 +232,8 @@ export default class FlatListHome extends React.Component {
             );
         } else if(this.state.showFoot === 0){
             return (
-                <View style={{marginBottom:6}}>
-
+                <View style={styles.footer}>
+                    <Text></Text>
                 </View>
             );
         }
@@ -280,22 +263,14 @@ export default class FlatListHome extends React.Component {
 
 }
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         padding:10,
-        height:'100%',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-    },
-    content: {
-        marginTop:4,
-        marginBottom:4,
-        marginLeft:8,
-        marginRight:8,
-        fontSize: 14,
-        color: 'black',
     },
     title: {
         marginTop:8,
@@ -311,8 +286,11 @@ let styles = StyleSheet.create({
         alignItems:'center',//交叉轴也为中心
         marginBottom:10,
     },
-
-    list_height:{
-        height:'100%'
+    content: {
+        marginBottom:8,
+        marginLeft:8,
+        marginRight:8,
+        fontSize: 14,
+        color: 'black',
     }
 });
