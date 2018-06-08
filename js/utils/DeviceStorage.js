@@ -7,7 +7,7 @@ export  default class DeviceStorage {
      */
     static get(key) {
         return AsyncStorage.getItem(key).then((value) => {
-            const jsonValue = JSON.parse(value);
+            const jsonValue = JSON.parse(value);//解析成对象
             return jsonValue;
         });
     }
@@ -20,7 +20,7 @@ export  default class DeviceStorage {
      * @returns {*}
      */
     static save(key, value) {
-        return AsyncStorage.setItem(key, JSON.stringify(value));
+        return AsyncStorage.setItem(key,JSON.stringify(value));//存为json 字符串
     }
 
 

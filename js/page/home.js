@@ -14,13 +14,16 @@ import NavigationBar from '../common/NavigationBar'
 import barColor from '../utils/colors'
 import ScrollableTabView  , { ScrollableTabBar }from 'react-native-scrollable-tab-view'
 import FlatListHome from "./FlatListHome";
+import {Actions} from "react-native-router-flux";
+import LanguageDao,{FLAG_LANGUAGE} from '../expand/LanguageDao'
 
 export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
+        this.languageDao=new LanguageDao(FLAG_LANGUAGE.flag_key);
         this.state = {
-           news_tabs:["Android","iOS","前端"]
+           news_tabs:[]
         }
     }
 
@@ -40,10 +43,17 @@ export default class Home extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentDidMount() {
+       this.loadData()
 
-
-
-
+    }
+    loadData()
+    {
+        this.languageDao.fetchStore().then(result=>{
+            console.log("加载111"+result)
+            this.setState({
+                news_tabs:result
+            })
+        })
     }
 
     /**
@@ -51,8 +61,8 @@ export default class Home extends React.Component {
      * 通过调用 this.setState() 来更新你的组件状态，这里调用更新状态是安全的，并不会触发额外的 render()
      * （能够使用setState()来改变属性 多次调用）
      */
-    componentWillReceiveProps() {
-
+    componentWillReceiveProps(nextProps) {
+      //  console.log(nextProps.fresh)
     }
 
     /**
@@ -99,7 +109,7 @@ export default class Home extends React.Component {
                         title={"首页"}
                         statusBar={{backgroundColor:barColor.color_bar}}
                         leftButton={<View/>}
-                        rightButton={<TouchableWithoutFeedback onPress={()=>ToastAndroid.show("dianji",1000)}><Image style={{width:24,height:24,marginRight:16}} source={require('../res/images/ic_menu.png')}/></TouchableWithoutFeedback>}
+                        rightButton={<TouchableWithoutFeedback onPress={()=>Actions.menu_choose()}><Image style={{width:24,height:24,marginRight:16}} source={require('../res/images/ic_menu.png')}/></TouchableWithoutFeedback>}
 
                     />
                     <ScrollableTabView
@@ -110,10 +120,11 @@ export default class Home extends React.Component {
                         tabBarTextStyle={styles.text_style}
                         renderTabBar={()=><ScrollableTabBar />}>
                         {
-                              this.state.news_tabs.map((name,index)=>{
-                                return (<ScrollView tabLabel={name} key={index} >
-                                       <FlatListHome id={name}/>
-                                </ScrollView>)
+                              this.state.news_tabs.map((item,i)=>{
+                                  console.log(JSON.stringify(item));
+                                  return  item.checked?(<ScrollView tabLabel={item.name} key={i} >
+                                    <FlatListHome id={item.path}/>
+                                </ScrollView>):null
                             })
                         }
                     </ScrollableTabView>

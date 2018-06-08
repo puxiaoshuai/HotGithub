@@ -215,15 +215,13 @@ export default class FlatListHome extends React.Component {
                         source={{uri:item.img.length===0?'http://ww1.sinaimg.cn/large/0065oQSqly1fs1vq7vlsoj30k80q2ae5.jpg':item.img[0]}}
                         indicator={Progress.Circle}
                         color={'#ff2702'}
-                        endAngle={0.9}
-                        showsText={true}
+                        strokeCap={'butt'}
                         style={{width:160,height:100,marginLeft:8}}/>
                     </TouchableWithoutFeedback>
                     <View style={{flexDirection:'row'}}>
                         <Text style={styles.content}>作者: {item.who}</Text>
                     <Text style={styles.content}>时间: {item.time}</Text>
                     </View>
-                    <Progress.Pie  size={50} animated={true} />
                 </View>
             </TouchableNativeFeedback >
         );

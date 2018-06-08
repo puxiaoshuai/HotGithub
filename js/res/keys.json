@@ -1,0 +1,8 @@
+[
+  {"path":"all","name":"精选","checked":true},
+  {"path":"Android","name":"Android","checked":true},
+  {"path":"iOS","name":"IOS","checked":true},
+  {"path":"前端","name":"前端","checked":false},
+  {"path":"福利","name":"福利","checked":false},
+  {"path":"休息视频","name":"休息视频","checked":false}
+]
